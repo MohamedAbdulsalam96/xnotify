@@ -7,7 +7,7 @@ def get_data():
 		{
 			"module_name": "XNotify",
 			"color": "grey",
-			"icon": "octicon octicon-file-directory",
+			"icon": "octicon octicon-bell",
 			"type": "module",
 			"label": _("XNotify")
 		}
