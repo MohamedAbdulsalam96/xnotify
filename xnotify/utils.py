@@ -33,10 +33,7 @@ def doc_is_pos(doc):
 
 
 def send_sms(sms_center):
-	try:
-		sms_center.send_sms()
-	except Exception as e:
-		frappe.throw(frappe._('Could not send SMS. It could be an internet problem or from the SMS provider'))
+	sms_center.send_sms()
 
 
 def parse_message(message, doc):
@@ -90,7 +87,7 @@ def notify(doc, *args):
 		sms_center.receiver_list = cstr(doc.contact_mobile)
 		sms_center.message = parse_message(notify_settings.message, doc)
 
-		send_sms(sms_center)
+		frappe.enqueue(send_sms, sms_center=sms_center)
 
 
 if __name__ == "__main__":
