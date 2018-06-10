@@ -1,4 +1,5 @@
 import frappe
+import six
 from frappe.utils import cstr
 
 
@@ -68,6 +69,7 @@ def parse_message(message, doc):
 	return msg.replace('|xna|', cstr(doc.grand_total)).replace('|xnn|', cstr(doc.name))
 
 
+@frappe.whitelist()
 def notify(doc, *args):
 	"""
 	Send an sms to a customer with the mobile phone number stored on the saved
@@ -77,6 +79,11 @@ def notify(doc, *args):
 	:param doc: Document - Sales Invoice doctype
 	:param args: Any other argument from the hook
 	"""
+	if(isinstance(doc, six.string_types)):
+		import json
+		doc_ = json.loads(doc)
+		doc = frappe._dict(**doc_)
+
 	notify_settings = get_single('XNotify Settings')
 
 	can_send_sms = notify_settings.send_sms and \
