@@ -1,6 +1,7 @@
 ## XNotify
 
 XNotify allows you send notifications to your customers after submit your Sales Invoices with ERPNext.
+It also works when POS is offline.
 
 
 ### Instructions
