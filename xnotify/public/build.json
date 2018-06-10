@@ -1,0 +1,6 @@
+{
+
+	"js/xnotify-pos.min.js": [
+		"public/js/pos.js"
+	]
+}

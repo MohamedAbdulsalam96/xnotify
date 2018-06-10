@@ -16,3 +16,5 @@ doc_events = {
 		"on_submit": "xnotify.utils.notify",
 	}
 }
+
+app_include_js = 'assets/js/xnotify-pos.min.js'
