@@ -1,6 +1,6 @@
 // Licence: MIT
 
-function submittedInvoice(pos) {
+function getSubmittedInvoice(pos) {
 	const doc = {};
 	const si_doc = pos.si_docs[pos.si_docs.length - 1];
 	const serial_number = Object.keys(si_doc)[0]
@@ -16,7 +16,7 @@ function isPosPage() {
 	return window.location.toString().includes('#pos');
 }
 
-function hijackOfflinePOS() {
+function injectXnotifyIntoPos() {
 	const pos = isPosPage() ? window.cur_pos : undefined;
 
 	if (pos) {
@@ -24,7 +24,7 @@ function hijackOfflinePOS() {
 
 		pos.submit_invoice = function notify() {
 			pos._submit_invoice();
-			const doc = submittedInvoice(pos);
+			const doc = getSubmittedInvoice(pos);
 			frappe.call({
 				method: 'xnotify.utils.notify',
 				args: {doc: doc},
@@ -47,7 +47,7 @@ let timeoutId;
 window.onload = () => {
 	timeoutId = setTimeout(function() {
 		if (!window.xnotify) {
-			hijackOfflinePOS();
+			injectXnotifyIntoPos();
 		}
 	}, 5000);
 };
@@ -55,7 +55,7 @@ window.onload = () => {
 window.onhashchange = () => {
 	timeoutId = setTimeout(function() {
 		if (!window.xnotify) {
-			hijackOfflinePOS();
+			injectXnotifyIntoPos();
 		}
 	}, 5000);
 };
