@@ -4,12 +4,10 @@ function getPhoneNumber(contacts, si, serialNumber) {
 	const contact = contacts[si[serialNumber].customer];
 
 	if (contact.phone) {
-		console.log(contact.phone);
 		return contact.phone;
 	}
 
 	if (contact.mobile_no) {
-		console.log(contact.mobile_no);
 		return contact.mobile_no;
 	}
 }
@@ -20,6 +18,7 @@ function getSubmittedInvoice(pos) {
 	const si_doc = pos.si_docs[pos.si_docs.length - 1];
 	const serialNumber = Object.keys(si_doc)[0];
 
+	doc.customer = si_doc[serialNumber].customer;
 	doc.contact_mobile = getPhoneNumber(pos.address, si_doc, serialNumber)
 	doc.grand_total = si_doc[serialNumber].grand_total;
 	doc.name = serialNumber;
@@ -28,6 +27,7 @@ function getSubmittedInvoice(pos) {
 }
 
 function isPosPage() {
+	// this is fragile. #pos can change in the future
 	return window.location.toString().includes('#pos');
 }
 

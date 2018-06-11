@@ -62,11 +62,16 @@ def parse_message(message, doc):
 	>>> parse_message('|xnn|, |xna|', frappe._dict(name='SINV-1234', grand_total='1000'))
 	u'SINV-1234, 1000'
 
+	>>> parse_message('|xnc|', frappe._dict(customer='Abel'))
+	u'Abel'
+
 	:param message: String - message to be sent in SMS
 	:param doc: Sales Invoice `Document`
 	"""
 	msg = cstr(message)
-	return msg.replace('|xna|', cstr(doc.grand_total)).replace('|xnn|', cstr(doc.name))
+	return msg.replace('|xna|', cstr(doc.grand_total))\
+		.replace('|xnn|', cstr(doc.name))\
+		.replace('|xnc|', cstr(doc.customer))
 
 
 @frappe.whitelist()
