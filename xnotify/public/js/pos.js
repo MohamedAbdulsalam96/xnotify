@@ -52,7 +52,7 @@ function injectXnotifyIntoPos() {
 
 	if (isPosPage() && !pos) {
 		// page was too slow to load.
-		window.frappe.show_alert('POS did not load properly. Please reload the page for full functionality.');
+		window.frappe.show_alert('XNotify did not load properly. Please reload the page for full functionality.');
 	}
 }
 
